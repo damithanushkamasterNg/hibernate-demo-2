@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 import entity.BookEntity;
 import entity.Laptop;
 import entity.Student;
+import entity.SubjectEntity;
 
 public class SessionFactoryConfiguration {
 
@@ -19,7 +20,8 @@ public class SessionFactoryConfiguration {
     private SessionFactoryConfiguration() {
         Configuration configuration = new Configuration().configure().addAnnotatedClass(Laptop.class)
                 .addAnnotatedClass(Student.class)
-                .addAnnotatedClass(BookEntity.class);
+                .addAnnotatedClass(BookEntity.class)
+                .addAnnotatedClass(SubjectEntity.class);
 
         sessionFactory = configuration.buildSessionFactory();
     }

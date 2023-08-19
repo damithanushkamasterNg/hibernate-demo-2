@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -26,26 +25,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "student")
-public class Student {
+@Table(name = "subject")
+public class SubjectEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "subject_name")
+    private String subName;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "laptop_id", nullable = false)
-    private Laptop laptopEntity;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "subject_student", joinColumns = { @JoinColumn(name = "subject_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "student_id") })
+    private List<Student> studentEntities = new ArrayList<>();
 
-    @OneToMany(mappedBy = "studentEntity", targetEntity = BookEntity.class)
-    List<BookEntity> bookEntities;
-
-
-    @ManyToMany(mappedBy = "studentEntities", targetEntity = SubjectEntity.class)
-    List<SubjectEntity> subjectEntities = new ArrayList<>();
 }
-
